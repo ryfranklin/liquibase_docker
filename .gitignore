@@ -1,0 +1,36 @@
+# Node / general
+node_modules/
+dist/
+.env
+.env.*  # For variants like .env.dev, .env.prod
+
+# Liquibase
+liquibase/liquibase.properties
+liquibase/liquibase.properties.template.bak
+
+# Docker
+*.log
+*.pid
+*.tar
+docker-compose.override.yml
+docker-compose*.bak.yml
+
+# Build artifacts
+*.class
+*.jar
+*.war
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Backup files
+*~
+*.bak
+*.tmp
+
+# Optional volumes if you mount them
+mysql_data/

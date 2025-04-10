@@ -1,0 +1,5 @@
+searchPath: /liquibase/changelog
+changeLogFile: changelog.yaml
+url: jdbc:mysql://mysql:3306/mysql
+username: ${LIQUIBASE_USERNAME}
+password: ${LIQUIBASE_PASSWORD}
