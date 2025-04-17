@@ -13,10 +13,10 @@ envsubst < liquibase/liquibase.properties.template > liquibase/liquibase.propert
 exec "$@"
 
 # # build the liquibase image
-# echo "Building liquibase image"
-# docker build -t liquibase-mysql .
+echo "Building liquibase image"
+docker build -t liquibase-mysql .
 
 # # start the docker compose
-# echo "Starting docker compose"
-# docker compose up --build
+echo "Starting docker compose"
+docker compose up -d --build
 
