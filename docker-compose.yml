@@ -8,6 +8,7 @@ services:
       - "${MYSQL_LOCAL_PORT}:${MYSQL_REMOTE_PORT}"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 5s
