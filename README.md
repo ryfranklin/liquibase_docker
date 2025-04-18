@@ -47,24 +47,34 @@ RUN liquibase install mysql
 
 ⚙️ Step 2: docker-compose.yml
 ```yaml
+# docker-compose.yml
 version: '3.8'
 
 services:
   mysql:
     image: mysql:8.4.4
-    container_name: mysql-test
     ports:
       - "${MYSQL_LOCAL_PORT}:${MYSQL_REMOTE_PORT}"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - default
+
 
   liquibase:
     image: liquibase-mysql
     container_name: liquibase-test
     depends_on:
-      - mysql
+      mysql: 
+        condition: service_healthy
     environment:
       INSTALL_MYSQL: true
     volumes:
@@ -75,6 +85,9 @@ services:
       "--defaultsFile=/liquibase/liquibase.properties",
       "update"
     ]
+    networks:
+      - default
+
 
 volumes:
   mysql-data:
@@ -88,6 +101,7 @@ MYSQL_REMOTE_PORT=3306
 MYSQL_ROOT_PASSWORD=yourpassword
 LIQUIBASE_USERNAME=root
 LIQUIBASE_PASSWORD=yourpassword
+MYSQL_DATABASE=liquibase
 ```
 ---
 
